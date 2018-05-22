@@ -18,22 +18,30 @@ generarJsonUsers.py
 ```
 
 ## Como usarlo:
- Por consola debera ejecutar esta instrucción:
+ Por consola deberá ejecutar esta instrucción:
 ``` 
 $ python generarJsonUsers.py -f example -r 2000
 ``` 
-Te generará un archivo example.json en la misma carpeta raiz que esta ejecutando el archivo
-Luego, ab
 
-
-### Screenshot(s):
+ Si no muestra algún error, te mostrará información acerca del nombre de los archivos generado
 <p align="center">
-<img src="http://www.seguridadsistema.com.ve/ggithub/zendesk/users/img/csv.png" />
+<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/console1.png" />
 </p>
 
+ Luego abrir la pagina de Api Console de Zendesk
+ ```
+ https://developer.zendesk.com/requests/new
+```
+ Deberá personalizar la conexión en el cual, van a cargar los datos que se va a migrar, [más información](https://)
+ 
+ 
+## Screenshot(s):
+### Imagen de muestra del Archivo example.csv
 <p align="center">
-<img src="http://www.seguridadsistema.com.ve/ggithub/zendesk/users/img/console1.png" />
+<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/csv.png" />
 </p>
+### Imagen de muestra Cuando se genera
+
 
 ## Autor (Author)
 
