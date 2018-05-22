@@ -11,7 +11,7 @@ Bash que permite generar un archivo JSON a partir de un archivo CSV, para poder 
 generarJsonUsers.py
 ```
 
-* Parametros de entradas:
+* Parámetros de entradas:
 ```
    -f  :  Nombre de archivo CSV a procesar (sin la extención)
    -r  :  Cuantos Registros se va a Generar por archivo
@@ -28,19 +28,31 @@ $ python generarJsonUsers.py -f example -r 2000
 <img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/console1.png" />
 </p>
 
- Luego abrir la pagina de Api Console de Zendesk
+ Luego abrir la página de **Api Console de Zendesk**
  ```
  https://developer.zendesk.com/requests/new
 ```
  Deberá personalizar la conexión en el cual, van a cargar los datos que se va a migrar, [más información](https://)
- 
+<p align="center">
+<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png" />
+</p>
+
  
 ## Screenshot(s):
 ### Imagen de muestra del Archivo example.csv
 <p align="center">
 <img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/csv.png" />
 </p>
-### Imagen de muestra Cuando se genera
+
+### Imagen de muestra cuando se genera el archivo JSON
+<p align="center">
+<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/json.png" />
+</p>
+
+### Imagen de muestra usando la herramienta API Console
+<p align="center">
+<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png" />
+</p>
 
 
 ## Autor (Author)
