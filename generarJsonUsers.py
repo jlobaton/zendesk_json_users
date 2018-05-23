@@ -179,7 +179,7 @@ print "///////////////////////////////////////////////////////"
 print "///"
 print "/// API: https://developer.zendesk.com/requests/new"
 print "/// URL: users/create_many.json"
-print procesar(args.file, args.row, args.option)
+print procesar(args.file, args.row, 'users')
 print "///"
 print "//////////////////////////////////////////////////////"
 

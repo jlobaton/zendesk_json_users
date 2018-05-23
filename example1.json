@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "user_fields": {
+        "monto": "15000", 
+        "rut": "1234567890", 
+        "direccion": "Calle 51"
+      }, 
+      "phone": "+56 987 6540", 
+      "name": "Jesus", 
+      "email": "ejemplo@loquesea.com"
+    }, 
+    {
+      "user_fields": {
+        "monto": "23000", 
+        "rut": "098765443", 
+        "direccion": "Carrera 24"
+      }, 
+      "phone": "+56 987 6540", 
+      "name": "Mayra", 
+      "email": "ejemplo2@loquesea.com"
+    }
+  ]
+}
