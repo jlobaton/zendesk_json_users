@@ -44,7 +44,11 @@ def verificar_correo(correo):
 
 
 def generar_jsonv2(row_json,campo,custom_fields,cabecera,migrar,output):
-	row_json[campo] = custom_fields
+	#print len(custom_fields)
+	#exit()
+	if len(custom_fields) > 0:
+		row_json[campo] = custom_fields
+	
 	df = []
 	df.append(row_json)  
 	output.append(row_json)
@@ -84,12 +88,21 @@ def procesar(archivo,row,option):
 
 		#filtrar1 = 'custom_fields_options'	
 		#campo2 = 'custom_fields_options'
-	else:  #tickets
+	elif migrar == 'tickets' :  #tickets
 		filtrar1 = 'custom_fields' 	
 		campo1 = 'custom_fields'
 
 		filtrar2 = 'comment' 	
 		campo2 = 'comment'
+
+	elif migrar == 'groups':
+		filtrar1 = 'custom_fields' 	
+		campo = 'custom_fields'
+
+
+	elif migrar == 'organizations':
+		filtrar1 = 'custom_fields' 	
+		campo = 'custom_fields'
 
 	output = []
 	leer = csv.DictReader(entrada)
@@ -115,7 +128,7 @@ def procesar(archivo,row,option):
 			#fin
 			
 			# USUARIOS
-			if migrar == 'users':
+			if migrar == 'users' or migrar == 'groups' or migrar == 'organizations':
 				if field.find(filtrar1) >= 0:
 					custom_fields[recortar(field,'.')] = valor[field]
 					#campo = campo
@@ -171,7 +184,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="Mostrar información de depuración", action="store_true")
 parser.add_argument("-f", "--file", help="Nombre de archivo CSV a procesar")
 parser.add_argument("-r", "--row", help="Cuantos Registros se va a Generar por archivo")
-parser.add_argument("-o", "--option", help="Debe especificar si es Users o Tickets")
+parser.add_argument("-o", "--option", help="Debe especificar si es users, tickets, groups, organzation")
 
 args = parser.parse_args()
 clear()
@@ -179,7 +192,7 @@ print "///////////////////////////////////////////////////////"
 print "///"
 print "/// API: https://developer.zendesk.com/requests/new"
 print "/// URL: users/create_many.json"
-print procesar(args.file, args.row, 'users')
+print procesar(args.file, args.row, args.option)
 print "///"
 print "//////////////////////////////////////////////////////"
 
