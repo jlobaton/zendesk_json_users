@@ -16,6 +16,7 @@ import json
 import codecs
 import os
 import re
+import pyperclip
 reload(sys)
 
 def clear(): #También la podemos llamar cls (depende a lo que estemos acostumbrados)
@@ -23,6 +24,13 @@ def clear(): #También la podemos llamar cls (depende a lo que estemos acostumbr
         os.system ("clear")
     elif os.name == ("ce", "nt", "dos"):
         os.system ("cls")
+
+def ClipBoard(file): #También la podemos llamar cls (depende a lo que estemos acostumbrados)
+    if os.name == "posix":
+  	    #print 'cat '+file+' | xclip -selection clipboard'
+      	os.system('cat '+file+' | xclip -selection clipboard')
+    elif os.name == ("ce", "nt", "dos"):
+        os.system ("")
 
 #sys.setdefaultencoding('utf8')
 
@@ -44,17 +52,76 @@ def verificar_correo(correo):
 
 
 def generar_jsonv2(row_json,campo,custom_fields,cabecera,migrar,output):
-	#print len(custom_fields)
+	#print (custom_fields)
 	#exit()
+##### bueno
 	if len(custom_fields) > 0:
+		if campo == "custom_field_options":
+			df = []
+			df.append(custom_fields)  
+			row_json[campo] = df
+			cabecera[migrar] = row_json
+			
+
+			#cabecera = custom_fields
+			row_json[campo] = custom_fields
+ 
+			output.append(row_json)
+			cabecera[migrar] = output #row_json			
+			#exit()
+		else:
+			row_json[campo] = custom_fields
+#######
+	if campo == "custom_field_options":
+		df = []
+		df.append(row_json)  
+		#row_json[campo] = df
+		cabecera[migrar] = df
+		
+		print row_json
+		#exit
+		#cabecera = custom_fields
 		row_json[campo] = custom_fields
-	
-	df = []
-	df.append(row_json)  
-	output.append(row_json)
-	cabecera[migrar] = output #row_json
+
+		output.append(row_json)
+		cabecera[migrar] = output #row_json			
+		#exit()
+	else:
+		df = []
+		df.append(row_json)  
+		output.append(row_json)
+		cabecera[migrar] = output #row_json
 	return cabecera
 
+
+def generar_jsonv1(row_json,campo,custom_fields,cabecera,migrar,output):
+	print (campo)
+	exit()
+##### bueno
+	if len(custom_fields) > 0:
+		if campo == "custom_field_options":
+			df = []
+			df.append(custom_fields)  
+			row_json[campo] = df
+			cabecera[migrar] = row_json
+			
+			print custom_fields
+
+			#cabecera = custom_fields
+			#row_json[campo] = custom_fields
+ 
+			#output.append(row_json)
+			#cabecera[migrar] = output #row_json			
+			exit()
+		else:
+			row_json[campo] = custom_fields
+#######
+	else:
+		df = []
+		df.append(row_json)  
+		output.append(row_json)
+		cabecera[migrar] = output #row_json
+	return cabecera
 
 def generar_archivo(output,archivo,i):
 	file = archivo+`i`+'.json'
@@ -66,6 +133,9 @@ def generar_archivo(output,archivo,i):
 					sort_keys=False,
 					encoding="utf-8",
 					ensure_ascii=False)
+	#pyperclip.copy(sali|da)
+	#Copia al Portapapeles el resultado del Archivo
+	ClipBoard(file)
 
 	#return archivo+`i`+'.json'
 	return file
@@ -84,7 +154,7 @@ def procesar(archivo,row,option):
 
 	if migrar == 'users': 
 		filtrar1 = 'custom_fields'  #PARAMETRO PARA FILTRAR EL CAMPO FIELDS
-		campo = 'user_fields'  #CAMPO QUE VA A COLOCAR EN EL JSON
+		campo = 'user_fields'  #CAMPO QUE VA A COLOCAR COMO EL NOMBRE DEL ARREGLO
 
 		#filtrar1 = 'custom_fields_options'	
 		#campo2 = 'custom_fields_options'
@@ -99,10 +169,15 @@ def procesar(archivo,row,option):
 		filtrar1 = 'custom_fields' 	
 		campo = 'custom_fields'
 
-
 	elif migrar == 'organizations':
 		filtrar1 = 'custom_fields' 	
 		campo = 'custom_fields'
+
+	elif migrar == 't-cfo':
+		migrar = 'ticket_field'
+		filtrar1 = 'custom_field_options' 	
+		campo = 'custom_field_options'
+
 
 	output = []
 	leer = csv.DictReader(entrada)
@@ -127,17 +202,8 @@ def procesar(archivo,row,option):
 
 			#fin
 			
-			# USUARIOS
-			if migrar == 'users' or migrar == 'groups' or migrar == 'organizations':
-				if field.find(filtrar1) >= 0:
-					custom_fields[recortar(field,'.')] = valor[field]
-					#campo = campo
-
-				else:
-					row_json[field] = valor[field]
-
 			# TICKET's
-			elif migrar == 'tickets':
+			if migrar == 'tickets':
 				if field.find(filtrar1) >= 0:   #custom_fields
 					#custom_fields[recortar(field,'.')] = valor[field]
 					custom_fields["id"] = recortar(field,'.')
@@ -160,6 +226,21 @@ def procesar(archivo,row,option):
 				
 				else:
 					row_json[field] = valor[field]
+
+			# USUARIOS
+			else: 
+			#migrar == 'users' or migrar == 'groups' or migrar == 'organizations':
+				if field.find(filtrar1) >= 0:  
+					custom_fields[recortar(field,'.')] = valor[field]
+					#campo = campo
+
+				else:
+					if migrar == 'ticket_field':  #ticket_field_options
+						# funciona custom_fields[field] = valor[field]
+						row_json[field] = valor[field]
+					else:
+						row_json[field] = valor[field]
+
 
 			#row_json[field] = valor[field]
 
@@ -188,11 +269,28 @@ parser.add_argument("-o", "--option", help="Debe especificar si es users, ticket
 
 args = parser.parse_args()
 clear()
+
+if args.option == 'users': 
+		url = 'users/create_many.json'
+
+elif args.option == 'tickets' :  
+		url = 'tickets.json'
+
+elif args.option == 'groups':
+		url = 'groups.json'
+
+elif args.option == 'organizations':
+		url = 'organizations/create_many.json'
+
+elif args.option == 't-cfo':
+		url = 'ticket_fields/_id_.json'; 
+
 print "///////////////////////////////////////////////////////"
 print "///"
 print "/// API: https://developer.zendesk.com/requests/new"
-print "/// URL: users/create_many.json"
+print "/// URL: "+url
 print procesar(args.file, args.row, args.option)
+print "/// Use Ctrl + V y para pegarlo en la API Console"
 print "///"
 print "//////////////////////////////////////////////////////"
 

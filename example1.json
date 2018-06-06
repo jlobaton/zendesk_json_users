@@ -2,11 +2,12 @@
   "users": [
     {
       "user_fields": {
-        "monto": "15000", 
+        "monto": "43600", 
         "rut": "1234567890", 
         "direccion": "Calle 51"
       }, 
-      "phone": "+56 987 6540", 
+      "phone": "+56 123 1234", 
+      "external_id": "1", 
       "name": "Jesus", 
       "email": "ejemplo@loquesea.com"
     }, 
@@ -17,6 +18,7 @@
         "direccion": "Carrera 24"
       }, 
       "phone": "+56 987 6540", 
+      "external_id": "2", 
       "name": "Mayra", 
       "email": "ejemplo2@loquesea.com"
     }
