@@ -8,13 +8,14 @@ Bash que permite generar un archivo JSON a partir de un archivo CSV, para poder 
 ## Explicación:
  Por consola deberá ejecutar esta instrucción:
 ``` 
-$ python generarJsonUsers.py -f example -r 2000
+$ python generarJsonUsers.py -f example -r 2000 -o users
 ``` 
 * Donde los parámetros de entradas, serian lo siguientes:
 ```
-   example : Nombre de archivo CSV a procesar (sin la extención)
    -f  :  Especifica el nombre del archivo a leer
+   example : Nombre de archivo CSV a procesar (sin la extención)
    -r  :  Cuantos Registros se va a Generar por archivo
+   -o  :  Especifica el tipo de archivo que va a generar
 ```
 
 * Archivo CSV, se necesita tener una estructura básica de Zendesk:
