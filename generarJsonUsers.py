@@ -151,13 +151,22 @@ def procesar(archivo,row,option):
 	entrada = open(archivo+'.csv','r')
 	mensaje = "Archivo: "
 	migrar = option #'users'
+	filtrar2 = ''
+	#filtrar1 = ''
+	campo = ''	
+	campo2 = ''	
 
 	if migrar == 'users': 
 		filtrar1 = 'custom_fields'  #PARAMETRO PARA FILTRAR EL CAMPO FIELDS
 		campo = 'user_fields'  #CAMPO QUE VA A COLOCAR COMO EL NOMBRE DEL ARREGLO
 
-		#filtrar1 = 'custom_fields_options'	
-		#campo2 = 'custom_fields_options'
+		filtrar2 = 'tags'	
+		campo2 = 'tags'
+
+	elif migrar == 'gm': 
+		filtrar1 = 'custom_fields'
+		migrar = 'group_memberships'  
+
 	elif migrar == 'tickets' :  #tickets
 		filtrar1 = 'custom_fields' 	
 		campo1 = 'custom_fields'
@@ -182,9 +191,6 @@ def procesar(archivo,row,option):
 	output = []
 	leer = csv.DictReader(entrada)
 	fieldnames = leer.fieldnames
-	#fieldnames = sorted(fieldnames)
-	#print fieldnames
-	#exit()
 	id_fieldnames = ('','','','0001','0002','0003','0003','0003','0003','0003','0003','0003','0003');
 	j = 0
 	i = 0
@@ -192,6 +198,7 @@ def procesar(archivo,row,option):
 	for valor in leer:			
 		cabecera = {}
 		row_json = {}
+		row_tags = []
 		custom_fields = {}
 
 		for field in fieldnames:
@@ -235,6 +242,12 @@ def procesar(archivo,row,option):
 					#campo = campo
 
 				else:
+
+					if filtrar2 and field.find(filtrar2) >= 0: #tags
+						row_tags.append(valor[field])
+						campo = campo2
+						row_json[campo] = row_tags
+
 					if migrar == 'ticket_field':  #ticket_field_options
 						# funciona custom_fields[field] = valor[field]
 						row_json[field] = valor[field]
@@ -270,8 +283,18 @@ parser.add_argument("-o", "--option", help="Debe especificar si es users, ticket
 args = parser.parse_args()
 clear()
 
+#group_memberships.json
+# {
+#   "group_membership": 
+#     {
+#       "user_id":    363155019994,
+#       "group_id":   360001035554,
+#       "default":    true
+#     }
+# }
+
 if args.option == 'users': 
-		url = 'users/create_many.json'
+		url = 'users/create_many.json  -  users/create_or_update_many.json'
 
 elif args.option == 'tickets' :  
 		url = 'tickets.json'
@@ -284,6 +307,10 @@ elif args.option == 'organizations':
 
 elif args.option == 't-cfo':
 		url = 'ticket_fields/_id_.json'; 
+
+elif args.option == 'gm':
+		url = 'group_memberships/create_many.json'; 
+
 
 print "///////////////////////////////////////////////////////"
 print "///"
