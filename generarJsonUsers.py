@@ -19,6 +19,7 @@ import re
 import pyperclip
 reload(sys)
 
+
 def clear(): #También la podemos llamar cls (depende a lo que estemos acostumbrados)
     if os.name == "posix":
         os.system ("clear")
@@ -41,7 +42,7 @@ def salir(mensaje, leer):
 	print "Mensaje: "+mensaje
 	print "-----------------------------"
 	#break
-	exit()
+	#exit()
 
 def verificar_correo(correo):
 	valido = False
