@@ -4,6 +4,8 @@ Bash que permite generar un archivo JSON a partir de un archivo CSV, para poder 
 ## Dependencias:
 
 * python >=  2.7.12
+* python-pyperclip
+* xclip
 
 ## Explicación:
  Por consola deberá ejecutar esta instrucción:
