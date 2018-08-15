@@ -36,11 +36,10 @@ def ClipBoard(file): #También la podemos llamar cls (depende a lo que estemos a
 #sys.setdefaultencoding('utf8')
 
 def salir(mensaje, leer):
-	#clear()
-	print "--- ERROR EN LA VALIDACION --"
-	print "Linea: " + str(leer.line_num)
-	print "Mensaje: "+mensaje
-	print "-----------------------------"
+	print ("--- ERROR EN LA VALIDACION ---")
+	print ("Linea: " + str(leer.line_num))
+	print ("Mensaje: "+mensaje)
+	print ("------------------------------")
 	#break
 	#exit()
 
@@ -75,18 +74,12 @@ def generar_jsonv2(row_json,campo,custom_fields,cabecera,migrar,output):
 #######
 	if campo == "custom_field_options":
 		df = []
-		df.append(row_json)  
-		#row_json[campo] = df
+		df.append(row_json)
 		cabecera[migrar] = df
-		
-		print row_json
-		#exit
-		#cabecera = custom_fields
 		row_json[campo] = custom_fields
 
 		output.append(row_json)
-		cabecera[migrar] = output #row_json			
-		#exit()
+		cabecera[migrar] = output
 	else:
 		df = []
 		df.append(row_json)  
@@ -106,7 +99,7 @@ def generar_jsonv1(row_json,campo,custom_fields,cabecera,migrar,output):
 			row_json[campo] = df
 			cabecera[migrar] = row_json
 			
-			print custom_fields
+			print (custom_fields)
 
 			#cabecera = custom_fields
 			#row_json[campo] = custom_fields
@@ -183,8 +176,8 @@ def procesar(archivo,row,option):
 		filtrar1 = 'custom_fields' 	
 		campo = 'custom_fields'
 
-	elif migrar == 't-cfo':
-		migrar = 'ticket_field'
+	elif migrar == 'u-cfo':
+		#migrar = 'ticket_field'
 		filtrar1 = 'custom_field_options' 	
 		campo = 'custom_field_options'
 
@@ -235,6 +228,11 @@ def procesar(archivo,row,option):
 				else:
 					row_json[field] = valor[field]
 
+			if migrar == 'u-cfo':
+				if field.find(filtrar1) >= 0:  
+					custom_fields[recortar(field,'.')] = valor[field]
+					row_tags.append(custom_fields);
+
 			# USUARIOS
 			else: 
 			#migrar == 'users' or migrar == 'groups' or migrar == 'organizations':
@@ -262,7 +260,7 @@ def procesar(archivo,row,option):
 			j = j+1
 			i = 0	
 			file = generar_archivo(arch,archivo,j)
-			print "/// "+mensaje+file
+			print ("/// "+mensaje+file)
 			output = []
 			arch = generar_jsonv2(row_json,campo,custom_fields,cabecera,migrar,output)
 		else:	
@@ -275,14 +273,14 @@ def procesar(archivo,row,option):
 	return "/// "+mensaje+file
 
 
+clear()
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="Mostrar información de depuración", action="store_true")
 parser.add_argument("-f", "--file", help="Nombre de archivo CSV a procesar")
 parser.add_argument("-r", "--row", help="Cuantos Registros se va a Generar por archivo")
-parser.add_argument("-o", "--option", help="Debe especificar si es users, tickets, groups, organzation")
+parser.add_argument("-o", "--option", help="Debe especificar si es users, tickets, groups, organzations, u-cfo")
 
 args = parser.parse_args()
-clear()
 
 #group_memberships.json
 # {
@@ -296,29 +294,39 @@ clear()
 
 if args.option == 'users': 
 		url = 'users/create_many.json  -  users/create_or_update_many.json'
+		method = '' 
 
 elif args.option == 'tickets' :  
 		url = 'tickets.json'
+		method = '' 
 
 elif args.option == 'groups':
 		url = 'groups.json'
+		method = 'USAR SKYVIA' 
 
 elif args.option == 'organizations':
 		url = 'organizations/create_many.json'
+		method = '' 
 
-elif args.option == 't-cfo':
-		url = 'ticket_fields/_id_.json'; 
+elif args.option == 'u-cfo':
+		url = 'user_fields/_id_/options.json'; 
+		method = 'POST' 
 
 elif args.option == 'gm':
 		url = 'group_memberships/create_many.json'; 
+		method = '' 
 
+else:
+ 		url = ''
+		method = '' 
 
 print "///////////////////////////////////////////////////////"
 print "///"
 print "/// API: https://developer.zendesk.com/requests/new"
 print "/// URL: "+url
-print procesar(args.file, args.row, args.option)
+print "/// METHOD: "+method
+if (args.file):
+	print procesar(args.file, args.row, args.option)
 print "/// Use Ctrl + V y para pegarlo en la API Console"
 print "///"
 print "//////////////////////////////////////////////////////"
-
