@@ -29,13 +29,13 @@ $ python generarJsonUsers.py -f example -r 2000 -o users
   * custom_fields.nombre_del_campo3
 
 * Imagen de muestra del Archivo example.csv
-<p align="center">
-<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/csv.png" />
+<p align= center >
+<img src= http://www.seguridadsistema.com.ve/github/zendesk/users/img/csv.png  />
 </p>
 
 * Si no muestra algún error, te mostrará información acerca del nombre de los archivos generado
-<p align="center">
-<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/console1.png" />
+<p align= center >
+<img src= http://www.seguridadsistema.com.ve/github/zendesk/users/img/console1.png  />
 </p>
 
  * Luego abrir la página de **Api Console de Zendesk**
@@ -45,21 +45,21 @@ $ python generarJsonUsers.py -f example -r 2000 -o users
 
 ```
  Deberá personalizar la conexión en el cual, van a cargar los datos que se va a migrar, [más información](https://)
-<p align="center">
-<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png" />
+<p align= center >
+<img src= http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png  />
 </p>
 
  
 ## Screenshot(s):
 
 ### Imagen de muestra cuando se genera el archivo JSON
-<p align="center">
-<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/json.png" />
+<p align= center >
+<img src= http://www.seguridadsistema.com.ve/github/zendesk/users/img/json.png  />
 </p>
 
 ### Imagen de muestra usando la herramienta API Console
-<p align="center">
-<img src="http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png" />
+<p align= center >
+<img src= http://www.seguridadsistema.com.ve/github/zendesk/users/img/apiconsole.png  />
 </p>
 
 

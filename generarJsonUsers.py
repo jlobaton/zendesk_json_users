@@ -181,6 +181,10 @@ def procesar(archivo,row,option):
 		filtrar1 = 'custom_field_options' 	
 		campo = 'custom_field_options'
 
+	elif migrar == 'sch': 
+		filtrar1 = 'custom_fields'
+		migrar = 'holiday'  
+
 
 	output = []
 	leer = csv.DictReader(entrada)
@@ -197,9 +201,9 @@ def procesar(archivo,row,option):
 
 		for field in fieldnames:
 			#Validaciones
-			if field.find('email') >= 0 :
-				if (verificar_correo(valor[field]) == False):
-					salir("Error en el Correo",leer)
+			#if field.find('email') >= 0 :
+				#if (verificar_correo(valor[field]) == False):
+					#salir("Error en el Correo",leer)
 
 			#fin
 			
@@ -278,7 +282,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="Mostrar información de depuración", action="store_true")
 parser.add_argument("-f", "--file", help="Nombre de archivo CSV a procesar")
 parser.add_argument("-r", "--row", help="Cuantos Registros se va a Generar por archivo")
-parser.add_argument("-o", "--option", help="Debe especificar si es users, tickets, groups, organzations, u-cfo")
+parser.add_argument("-o", "--option", help="Debe especificar si es users, tickets, groups, organzations, u-cfo, gm=group_memberships")
 
 args = parser.parse_args()
 
@@ -294,7 +298,7 @@ args = parser.parse_args()
 
 if args.option == 'users': 
 		url = 'users/create_many.json  -  users/create_or_update_many.json'
-		method = '' 
+		method = 'POST' 
 
 elif args.option == 'tickets' :  
 		url = 'tickets.json'
@@ -314,8 +318,11 @@ elif args.option == 'u-cfo':
 
 elif args.option == 'gm':
 		url = 'group_memberships/create_many.json'; 
-		method = '' 
+		method = 'POST' 
 
+elif args.option == 'sch':
+		url = 'business_hours/schedules/{id}/holidays.json'; 
+		method = 'POST' 
 else:
  		url = ''
 		method = '' 

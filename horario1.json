@@ -1,0 +1,74 @@
+{
+  "holiday": [
+    {
+      "name": "Año Nuevo", 
+      "end_date": "2020-01-10", 
+      "start_date": "2020-01-10"
+    }, 
+    {
+      "name": "Jueves Santo", 
+      "end_date": "2020-03-29", 
+      "start_date": "2020-03-29"
+    }, 
+    {
+      "name": "Viernes Santo", 
+      "end_date": "2020-03-30", 
+      "start_date": "2020-03-30"
+    }, 
+    {
+      "name": "Sábado Santo", 
+      "end_date": "2020-03-31", 
+      "start_date": "2020-03-31"
+    }, 
+    {
+      "name": "Domino de Resurrección", 
+      "end_date": "2020-04-01", 
+      "start_date": "2020-04-01"
+    }, 
+    {
+      "name": "Día del Trabajo", 
+      "end_date": "2020-05-01", 
+      "start_date": "2020-05-01"
+    }, 
+    {
+      "name": "Día de la Madre", 
+      "end_date": "2020-05-10", 
+      "start_date": "2020-05-10"
+    }, 
+    {
+      "name": "Día del Padre", 
+      "end_date": "2020-06-17", 
+      "start_date": "2020-06-17"
+    }, 
+    {
+      "name": "Fiestas de San Salvador", 
+      "end_date": "2020-08-03", 
+      "start_date": "2020-08-03"
+    }, 
+    {
+      "name": "Fiestas de San Salvador", 
+      "end_date": "2020-08-05", 
+      "start_date": "2020-08-05"
+    }, 
+    {
+      "name": "Fiestas de San Salvador", 
+      "end_date": "2020-08-06", 
+      "start_date": "2020-08-06"
+    }, 
+    {
+      "name": "Día de la Independencia", 
+      "end_date": "2020-09-15", 
+      "start_date": "2020-09-15"
+    }, 
+    {
+      "name": "Día de los Muertos", 
+      "end_date": "2019-11-02", 
+      "start_date": "2019-11-02"
+    }, 
+    {
+      "name": "Día de Navidad", 
+      "end_date": "2019-12-25", 
+      "start_date": "2019-12-25"
+    }
+  ]
+}
